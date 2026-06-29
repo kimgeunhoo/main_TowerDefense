@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IGridProvider
 {
-    float CellSize { get; }
+    int CellSize { get; }
 
     bool CheckGridInPoint(Vector3 point);
 

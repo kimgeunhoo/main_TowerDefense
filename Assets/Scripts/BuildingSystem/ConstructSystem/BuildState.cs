@@ -46,6 +46,7 @@ public class BuildState : IConstructMode
             // Model 데이터 갱신
             model.SnappedPos = model.CurrentGrid.GetCellCenterFromPoint(rawPos);
             model.IsValidPosition = CheckValidity(model.CurrentGrid, model.SnappedPos);
+            Debug.Log(model.SnappedPos);
 
             // View에 갱신 지시
             view.UpdatePreview(model.SnappedPos, model.IsValidPosition);

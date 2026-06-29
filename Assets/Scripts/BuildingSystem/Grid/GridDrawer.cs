@@ -22,7 +22,7 @@ public class GridDrawer : MonoBehaviour
             meshRenderer.material = gridMaterial;
     }
 
-    public void DrawMesh(Dictionary<Vector2Int, CellData> gridData, float cellSize)
+    public void DrawMesh(Dictionary<Vector2Int, CellData> gridData, float cellSize, Vector3 startPos)
     {
         // 메쉬 생성 및 이름 설정
         Mesh mesh = new Mesh();
@@ -46,9 +46,9 @@ public class GridDrawer : MonoBehaviour
             Debug.Log(index);
 
             // 각 셀의 중앙 좌표 계산
-            float centerX = index.x * cellSize + cellHalfSize;
-            float centerZ = index.y * cellSize + cellHalfSize;
-            
+            float centerX = (index.x * cellSize) + cellHalfSize + startPos.x;
+            float centerZ = (index.y * cellSize) + cellHalfSize + startPos.z;
+
             Vector3 center_global = new Vector3(centerX, 0, centerZ);
             Vector3 center_local = transform.InverseTransformPoint(center_global);
           

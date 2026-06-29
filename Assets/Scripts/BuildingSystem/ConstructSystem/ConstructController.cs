@@ -10,7 +10,7 @@ public class ConstructController : MonoBehaviour
     private LayerMask obstacleLayer;
 
     [Header("Å¸¿ö ÇÁ¸®ÆÕ ¸ñ·Ï")]
-    [SerializeField] private GameObject[] databaseTowerPrefabs;
+    [SerializeField] private TowerData[] TowerDeck;
 
     [Header("Äü½½·Ô ºä")]
     [SerializeField]
@@ -28,7 +28,7 @@ public class ConstructController : MonoBehaviour
     {
         Model = new ConstructModel();
         Model.ObstacleLayer = obstacleLayer;
-        Model.towerPrefabs = databaseTowerPrefabs;
+        Model.towerPrefabs = TowerDeck;
 
         View = GetComponent<ConstructView>();
     }
@@ -63,11 +63,6 @@ public class ConstructController : MonoBehaviour
         if (View != null && View.towerInteractUI != null)
         {
             View.towerInteractUI.OnDestroyClicked -= PerformCurModeSubAction;
-            View.towerInteractUI.OnBarrierClickedEvent -= () =>
-            {
-                View.towerInteractUI.Hide();
-                ChangeState<IdleState>();
-            };
         }
 
 
@@ -102,11 +97,12 @@ public class ConstructController : MonoBehaviour
 
     public void SelectBuildingByIndex(int slotIndex)
     {
-        GameObject[] towers = Model.towerPrefabs;
+        TowerData[] towers = Model.towerPrefabs;
+
         if (towers == null || slotIndex < 0 || slotIndex >= towers.Length) return;
         if (towers[slotIndex] == null) return;
 
-        bool buildingSelected = SelectBuilding(Model.towerPrefabs[slotIndex]);
+        bool buildingSelected = SelectBuilding(Model.towerPrefabs[slotIndex].towerPF);
         if (buildingSelected)
         {
             quickSlotView.UpdateHighlight(slotIndex);
