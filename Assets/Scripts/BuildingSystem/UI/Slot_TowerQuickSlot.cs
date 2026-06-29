@@ -24,11 +24,9 @@ public class Slot_TowerQuickSlot : MonoBehaviour
             slotButton.onClick.RemoveAllListeners();
             slotButton.onClick.AddListener(HandleClick);
         }
-
-        SetSlotData(null);
     }
 
-    public void SetSlotData(GameObject data)
+    public void SetSlotData(TowerData data)
     {
         if (data != null && slotIcon != null)
         {

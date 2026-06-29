@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 public class UI_TowerInteract : MonoBehaviour
 {
     public event Action OnDestroyClicked;
-    public event Action OnBarrierClickedEvent;
 
     [Header("UI 구성요소")]
     [SerializeField] private RectTransform menuRect;

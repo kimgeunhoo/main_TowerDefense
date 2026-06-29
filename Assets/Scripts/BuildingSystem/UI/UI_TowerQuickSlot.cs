@@ -19,7 +19,7 @@ public class UI_TowerQuickSlot : MonoBehaviour
         }
     }
 
-    public void SetupUI(GameObject[] activeTowers)
+    public void SetupUI(TowerData[] activeTowers)
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -27,6 +27,7 @@ public class UI_TowerQuickSlot : MonoBehaviour
 
             //TowerDataSO data = (activeTowers != null && i < activeTowers.Length) ? activeTowers[i] : null;
             slots[i].Initialize(i);
+            slots[i].SetSlotData(activeTowers[i]);
 
             // 하위 슬롯 클릭 이벤트 구독
             slots[i].OnClicked += HandleSlotClicked;

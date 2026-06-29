@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +11,8 @@ public class GridGenerator : MonoBehaviour, IGridProvider
     private BoxCollider gridBound;
     // 셀 한개 사이즈 
     [SerializeField]
-    private float cellSize;
-    public float CellSize { get { return cellSize; }}
+    private int cellSize;
+    public int CellSize { get { return cellSize; }}
 
     [SerializeField]
     private LayerMask floorLayer;
@@ -19,6 +20,10 @@ public class GridGenerator : MonoBehaviour, IGridProvider
     private LayerMask obstacleLayer;
 
     private GridData gridData;
+
+    private Vector3 StartPos => gridBound.bounds.min;
+
+    private float CellSizeF => (float)cellSize;
 
     private void Start()
     {
@@ -34,21 +39,25 @@ public class GridGenerator : MonoBehaviour, IGridProvider
 
     public Vector2Int GetCellIndex(Vector3 point)
     {
-        int x = Mathf.FloorToInt(point.x / cellSize);
-        int y = Mathf.FloorToInt(point.z / cellSize);
+        int x = Mathf.FloorToInt((point.x - StartPos.x) / CellSizeF);
+        int y = Mathf.FloorToInt((point.z - StartPos.z) / CellSizeF);
 
         return new Vector2Int(x, y);
     }
 
     public Vector3 GetCellCenterFromIndex(Vector2Int index)
     {
-        return new Vector3(index.x * cellSize + cellSize / 2, 0f, index.y * cellSize + cellSize / 2);
-    }
+        float centerX = (index.x * cellSize) + (cellSize / 2f) + StartPos.x;
+        float centerZ = (index.y * cellSize) + (cellSize / 2f) + StartPos.z;
 
+        return new Vector3(centerX, 0f, centerZ);
+    }
     public Vector3 GetCellCenterFromPoint(Vector3 point)
     {
         // 월드 좌표 -> 셀 인덱스
         Vector2Int index = GetCellIndex(point);
+
+        Debug.Log(index);
 
         // 셀 인덱스 -> 셀 중앙 좌표
         return GetCellCenterFromIndex(index);
@@ -68,11 +77,9 @@ public class GridGenerator : MonoBehaviour, IGridProvider
             return false;
         }
 
-        // 셀 중앙 좌표 계산
-        Vector3 cellCenter = GetCellCenterFromPoint(new Vector3(index.x, 0, index.y));
 
         // 셀 내에 다른 오브젝트가 있는지 검사
-        if(CheckObjInCell(GetCellCenterFromPoint(cellCenter), cellSize, obstacleLayer))
+        if(CheckObjInCell(GetCellCenterFromIndex(index), cellSize, obstacleLayer))
         {
             Debug.Log("Obj in cell");
             return false;
@@ -95,22 +102,12 @@ public class GridGenerator : MonoBehaviour, IGridProvider
         // 1. 콜라이더의 영역(Bounds) 가져오기
         Bounds bounds = gridBound.bounds;
 
-        // 스캔할 최소/최대 범위를 그리드 크기에 맞춰 정렬.
-        int startX = Mathf.CeilToInt(bounds.min.x / cellSize);
-        int endX = Mathf.FloorToInt(bounds.max.x / cellSize);
-        int startZ = Mathf.CeilToInt(bounds.min.z / cellSize);
-        int endZ = Mathf.FloorToInt(bounds.max.z / cellSize);
+        int gridWidth = Mathf.CeilToInt(bounds.size.x / cellSize);
+        int gridHeight = Mathf.CeilToInt(bounds.size.z / cellSize);
 
-        Debug.Log("GenerateGrid");
-
-        Debug.Log(startX);
-        Debug.Log(endX);
-        Debug.Log(startZ);
-        Debug.Log(endZ);
-
-        for (int z = startZ; z < endZ; z++)
+        for (int z = 0; z < gridHeight; z ++)
         {
-            for(int x = startX; x < endX; x++)
+            for(int x = 0; x < gridWidth; x ++)
             {
                 // 셀 인덱스 Vector2 생성
                 Vector2Int cellIndex = new Vector2Int(x, z);
@@ -139,7 +136,7 @@ public class GridGenerator : MonoBehaviour, IGridProvider
         }
 
         //Debug.Log(gridData.GetGrid().Count);
-        gridDrawer.DrawMesh(gridData.GetGrid(), cellSize);
+        gridDrawer.DrawMesh(gridData.GetGrid(), cellSize, StartPos);
     }
 
     public bool CheckObjInCell(Vector3 pos, float cellSize, LayerMask objLayer)
