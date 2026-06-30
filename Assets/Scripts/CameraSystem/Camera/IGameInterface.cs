@@ -241,6 +241,14 @@ namespace IGameInterface
         EnemyInfo IInfoProvider<EnemyInfo>.Info => TryGetEnemyInfo(out EnemyInfo info) ? info : null;
     }
 
+    public interface IEnemyInfoWriter
+    {
+        void SetAlive(bool value);
+        void SetTargetable(bool value);
+        void SetPathProgress(float value);
+        void SetAttackTarget(IAttackTarget target);
+    }
+
     public interface IAttackTarget
     {
         Transform TargetTransform { get; }
@@ -312,4 +320,57 @@ namespace IGameInterface
             HasBounds = hasBounds;
         }
     }
+
+    public interface ITowerTargetFinder
+    {
+        EnemyInfo CurrentTarget { get; }
+        EnemyTargetMode ChaseMode { get; }
+        bool HasTarget { get; }
+
+        bool TryGetTarget(Vector3 origin, float range, EnemyTargetMode mode, out EnemyInfo target);
+        bool TryGetTarget(Vector3 origin, float range, out EnemyInfo target);
+        bool IsValidTarget(EnemyInfo target, Vector3 origin, float range);
+        void SetChaseMode(EnemyTargetMode mode);
+        void ClearTarget();
+    }
+
+    public enum StageState
+    {
+        None,
+        Prepare,
+        Playing,
+        WaveClear,
+        StageClear,
+        StageFailed
+    }
+
+    public interface IMonsterSpawnManager : ISceneService
+    {
+        bool IsSpawning { get; }
+        bool SpawnFinished { get; }
+
+        void StartWave(MonsterSpawnDataSO spawnData);
+        void StopWave();
+    }
+
+    public interface IStageDamageSource
+    {
+        int LeakDamage { get; }
+    }
+    public interface IStageService : ISceneService
+    {
+        StageState CurrentState { get; }
+        int CurrentBaseHp { get; }
+        int MaxBaseHp { get; }
+        int TowerLimit { get; }
+
+        event Action<StageState> StateChanged;
+        event Action<int, int> BaseHpChanged;
+
+        void StartStage();
+        void StartWave();
+        void TakeBaseDamage(int damage);
+    }
+
+
 }

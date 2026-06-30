@@ -12,3 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940a673fcb13ec54bbb02edb55a10de0, type: 3}
   m_Name: StageDataSO
   m_EditorClassIdentifier: Assembly-CSharp::StageDataSO
+  TowerLimit: 10
+  BaseHp: 10
+  Waves:
+  - DisplayName: Test Wave
+    SpawnData: {fileID: 11400000, guid: 49be76b0f7d6ffc4d951eb4bbb0ef058, type: 2}
+    PrepareTime: 10
+    CanSkipPrepare: 0
+    AllowBuildDuringWave: 1

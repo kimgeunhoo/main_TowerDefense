@@ -41,6 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3275506443000837453}
   - component: {fileID: 1236827546789982407}
+  - component: {fileID: -471524857386757526}
+  - component: {fileID: -4149352218196486697}
   m_Layer: 0
   m_Name: TestTower
   m_TagString: Untagged
@@ -92,6 +94,35 @@ MonoBehaviour:
     m_Bits: 512
   rotateBody: {fileID: 3275506443000837453}
   rotateSpeed: 10
+--- !u!114 &-471524857386757526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8340965744140817121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d945d9d9aac7f124da79716d88a3329f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerInfoProvider
+  targetTransform: {fileID: 3275506443000837453}
+  isAlive: 1
+  isPlaced: 1
+--- !u!114 &-4149352218196486697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8340965744140817121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b77edc0a11bf644b0c3859ed1eea7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerTargetFinder
+  searchInterval: 0.15
+  targetMode: 2
 --- !u!1001 &5570168505360380976
 PrefabInstance:
   m_ObjectHideFlags: 0
