@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
     {
         // 1. 타일 전체 크기 (청록색 박스)
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(transform.position, new Vector3(1.0f, 0.1f, 1.0f));
+        Gizmos.DrawWireCube(transform.position, new Vector3(0.8f, 0.1f, 0.8f));
 
         // 2. 만약 MonsterManager에서 설정한 pathWidth가 있다면, 
         // 몬스터가 실제로 다닐 수 있는 '안전 구역'도 같이 그려줍니다.
@@ -25,6 +25,6 @@ public class Tile : MonoBehaviour
         Gizmos.color = Color.yellow;
         // pathWidth는 매니저에 있지만, 여기선 임시로 1.5로 가정하거나 
         // MonsterManager.instance.pathWidth 등으로 접근 가능합니다.
-        Gizmos.DrawWireCube(transform.position, new Vector3(1.5f, 0.05f, 1.5f));
+        Gizmos.DrawWireCube(transform.position, new Vector3(1f, 0.05f, 1f));
     }
 }

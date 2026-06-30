@@ -14,6 +14,8 @@ public class PathData
 
 public class MonsterManager : MonoBehaviour
 {
+    [SerializeField] bool useAutoSpawn = true;
+
     public static MonsterManager Instance; // 어디서든 접근 가능하게 설정
 
     public GameObject monsterPrefab;
@@ -25,6 +27,7 @@ public class MonsterManager : MonoBehaviour
     public List<PathData> paths;
 
     private Queue<Monster> monsterPool = new Queue<Monster>();
+
     private List<Monster> activeMonsters = new List<Monster>();
     private Dictionary<Vector2Int, List<Monster>> gridBuckets = new Dictionary<Vector2Int, List<Monster>>();
 
@@ -41,6 +44,8 @@ public class MonsterManager : MonoBehaviour
 
     void Update()
     {
+        if (!useAutoSpawn) return;
+        
         // 1. 몬스터 스폰 체크
         foreach (var path in paths)
         {
@@ -70,8 +75,19 @@ public class MonsterManager : MonoBehaviour
             if (shouldUpdateCache) m.cachedSpeedMultiplier = CalculateSpeedMultiplier(m);
             m.ManualUpdate(Time.deltaTime, separationForce, pathWidth, containmentStrength, m.cachedSpeedMultiplier);
 
+            /* 기존 함수
             if (m.IsReachedEnd())
             {
+                m.gameObject.SetActive(false);
+                activeMonsters.RemoveAt(i);
+                monsterPool.Enqueue(m);
+            }
+            */
+            if (m.IsReachedEnd())
+            {
+                if (m.TryGetComponent(out MonsterRuntimeBridge bridge))
+                    bridge.HandleReachedEnd();
+
                 m.gameObject.SetActive(false);
                 activeMonsters.RemoveAt(i);
                 monsterPool.Enqueue(m);
@@ -79,18 +95,35 @@ public class MonsterManager : MonoBehaviour
         }
     }
 
+    public int ActiveMonsterCount => activeMonsters.Count;
+
+    public void StopAutoSpawn()
+    {
+        foreach (PathData path in paths)
+            path.spawnTimer = 0f;
+
+        enabled = false;
+    }
+
+    public void StartAutoSpawn()
+    {
+        enabled = true;
+    }
+    public void SpawnPathGroup(PathData pathData) => StartCoroutine(SpawnMonsterGroup(pathData));
+
     IEnumerator SpawnMonsterGroup(PathData pathData)
     {
         for (int i = 0; i < pathData.countPerSpawn; i++)
         {
-            if (monsterPool.Count > 0)
-            {
-                Monster m = monsterPool.Dequeue();
+                Monster m = GetMonster();
                 m.OnMonsterDie += HandleMonsterDeath;
                 m.gameObject.SetActive(true);
                 m.Initialize(pathData.waypoints, spawnY);
+
+                if (m.TryGetComponent(out MonsterRuntimeBridge bridge))
+                    bridge.BindPath(pathData.waypoints);
+
                 activeMonsters.Add(m);
-            }
             yield return new WaitForSeconds(0.2f);
         }
     }
@@ -109,6 +142,7 @@ public class MonsterManager : MonoBehaviour
         monsterPool.Enqueue(deadMonster);
 
         Debug.Log("몬스터가 죽어서 풀로 돌아갔습니다.");
+
     }
     Vector3 CalculateSeparation(Monster m)
     {
@@ -135,5 +169,22 @@ public class MonsterManager : MonoBehaviour
     float CalculateSpeedMultiplier(Monster m)
     {
         return 1.0f; // 추가적인 가속 제어 시 확장
+    }
+
+    public Monster GetMonster()
+    {
+        // 1. 풀에 여유가 있다면 꺼내서 사용
+        if (monsterPool.Count > 0)
+        {
+            return monsterPool.Dequeue();
+        }
+        // 2. 풀이 비었다면 새로 생성해서 반환
+        else
+        {
+            GameObject obj = Instantiate(monsterPrefab);
+            Monster newMonster = obj.GetComponent<Monster>();
+            obj.SetActive(false);
+            return newMonster;
+        }
     }
 }
