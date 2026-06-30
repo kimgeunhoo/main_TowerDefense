@@ -1728,6 +1728,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26adaa2f667052c47b2c799a01d26ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConstructController
+  resourceInterfaceRef:
+    target: {fileID: 0}
   buildSystem: {fileID: 315520728}
   obstacleLayer:
     serializedVersion: 2
@@ -1748,6 +1750,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40fe0d2ca8d7dc408364d2de472df22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConstructTestInput
+  rayHitLayer:
+    serializedVersion: 2
+    m_Bits: 0
   controller: {fileID: 315520731}
   mainCamera: {fileID: 1861183098}
 --- !u!1 &332210921
@@ -5287,9 +5292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 754a2f452ede2bf48b472c98807bccbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_TowerQuickSlot
-  slots:
-  - {fileID: 1248260690}
-  - {fileID: 1828723865}
+  slotPF: {fileID: 0}
+  slotParent: {fileID: 0}
 --- !u!1 &894271754
 GameObject:
   m_ObjectHideFlags: 0
@@ -7267,17 +7271,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4251587273922687577, guid: 09046ad8ef8c7f14aa50ff5c481b1006, type: 3}
   m_PrefabInstance: {fileID: 598981568}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1248260690 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3791256311405333180, guid: 09046ad8ef8c7f14aa50ff5c481b1006, type: 3}
-  m_PrefabInstance: {fileID: 598981568}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d34a0d96c9f08ec4391f8c0fe61e5e2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Slot_TowerQuickSlot
 --- !u!1001 &1285069971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9879,17 +9872,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4251587273922687577, guid: 09046ad8ef8c7f14aa50ff5c481b1006, type: 3}
   m_PrefabInstance: {fileID: 1514731401}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1828723865 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3791256311405333180, guid: 09046ad8ef8c7f14aa50ff5c481b1006, type: 3}
-  m_PrefabInstance: {fileID: 1514731401}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d34a0d96c9f08ec4391f8c0fe61e5e2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Slot_TowerQuickSlot
 --- !u!1001 &1836112725
 PrefabInstance:
   m_ObjectHideFlags: 0
