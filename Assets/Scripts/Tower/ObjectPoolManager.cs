@@ -58,8 +58,7 @@ public class ObjectPoolManager : MonoBehaviour
                     {
                         projectileTable[data.projectileID] = prefab;
 
-                        Debug.Log(
-                            $"Projectile 등록 : {data.projectileID}");
+                        Debug.Log($"Projectile 등록 : {data.projectileID}");
                     });
 
             yield return handle;
@@ -76,7 +75,7 @@ public class ObjectPoolManager : MonoBehaviour
                     prefab =>
                     {
                         hitBoxTable[data.hitBoxID] = prefab;
-                        
+                        Debug.Log($"[HitBoxTable 등록] ID: {data.hitEffectID}, Data: {data.name}, Prefab: {prefab.name}");
                         Debug.Log($"HitBox 등록 : {data.hitBoxID}");
                     });
 
@@ -114,15 +113,15 @@ public class ObjectPoolManager : MonoBehaviour
 
     public GameObject GetHitBox(int id)
     {
-        //Debug.Log($"HitBox 요청 ID : {id}");
+        Debug.Log($"HitBox 요청 ID : {id}");
 
         if (hitBoxTable.TryGetValue(id, out GameObject prefab))
         {
-            //Debug.Log($"HitBox 찾음 : {prefab.name}");
+            Debug.Log($"HitBox 찾음 : {prefab.name}");
             return prefab;
         }
 
-        //Debug.LogError($"HitBox ID 없음 : {id}");
+        Debug.LogError($"HitBox ID 없음 : {id}");
         return null;
     }
 

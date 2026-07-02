@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,21 +7,20 @@ public class AreaHitBox : PoolableObject
     private LayerMask monsterLayer;
     private HitBoxData hitBoxData;
 
-    private bool isAttacking;
-
     // 공격 속도, 간격
     private float attackSpeed;
     private float tickInterval;
 
     private Dictionary<Monster, float> damageTimers = new Dictionary<Monster, float>();
+    private IHitBoxShapeInitializer shapeInitializer;
 
-    private BoxCollider boxCollider;
+    private Collider Collider;
 
     private Transform target;
 
     private void Awake()
     {
-        boxCollider = GetComponent<BoxCollider>();
+        Collider = GetComponent<Collider>();
     }
 
     public void Initialize(Transform target, int damage, LayerMask monsterLayer, HitBoxData data, float attackSpeed)
@@ -36,12 +33,19 @@ public class AreaHitBox : PoolableObject
 
         damageTimers.Clear();
 
-        if (boxCollider == null)
-            boxCollider = GetComponent<BoxCollider>();
+        if (Collider == null)
+            Collider = GetComponent<Collider>();
 
-        boxCollider.isTrigger = true;
-        boxCollider.size = data.boxSize;
-        boxCollider.center = data.boxCenter;
+        if (shapeInitializer == null)
+            shapeInitializer = GetComponent<IHitBoxShapeInitializer>();
+
+        if (shapeInitializer == null)
+        {
+            Debug.LogError($"{name}에 IHitBoxShapeInitializer가 없습니다.");
+            return;
+        }
+
+        shapeInitializer.Initialize(data);
     } 
 
     private void OnTriggerStay(Collider other)

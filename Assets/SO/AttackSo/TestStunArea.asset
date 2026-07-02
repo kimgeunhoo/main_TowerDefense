@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436dffeed80d04c4d857304485a50831, type: 3}
   m_Name: TestStunArea
   m_EditorClassIdentifier: Assembly-CSharp::HitBoxAttackData
-  label: 
+  addressKey: 
+  label: HitBox
   hitBoxID: 1004
-  hitEffectID: 0
+  hitEffectID: 1004
   activeTime: 5
   damageInterval: 5
+  center: {x: 0, y: 0, z: 3}
   boxSize: {x: 1.5, y: 1.5, z: 6}
-  boxCenter: {x: 0, y: 0, z: 3}
+  sphereRadius: 1
+  capsuleRadius: 1
+  capsuleHeight: 1
+  capsuleDirection: 0
   applyDebuff: 1
   debuffs:
   - debuffType: 0

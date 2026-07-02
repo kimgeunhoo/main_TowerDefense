@@ -202,14 +202,14 @@ public class Tower : BuildingBase
              towerData.hitBoxAttackData.hitBoxID
         );
 
-        //Debug.Log($"[HitBox] 로드 결과 = {(prefab == null ? "NULL" : prefab.name)}");
+        Debug.Log($"[HitBox] 로드 결과 = {(prefab == null ? "NULL" : prefab.name)}");
 
         if (prefab == null)
         {
             //Debug.LogError($"{name} : hitBoxPrefab 없음");
             yield break;
         }
-
+        
         AreaHitBox hitBox = ObjectPoolManager.Instance.Spawn<AreaHitBox>(
             prefab,
             firePoint.position,
