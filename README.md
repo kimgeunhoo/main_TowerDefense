@@ -331,8 +331,8 @@ git clone https://github.com/사용자명/저장소명.git
 
 ## 📅 개발 기간
 
-* `2026.00.00 ~ 2026.00.00`
-* 개발 인원: `0명`
+* `2026.06.23 ~ 2026.07.20`
+* 개발 인원: `4명`
 * 담당 분야: `게임 클라이언트 프로그래밍`
 
 <br>
@@ -341,7 +341,6 @@ git clone https://github.com/사용자명/저장소명.git
 
 * 타워 강화 및 업그레이드 시스템
 * 추가 스테이지와 몬스터 구현
-* 세이브 및 로드 기능
 * 난이도 선택 기능
 * 보스 몬스터 패턴 추가
 * 사운드 및 그래픽 옵션 추가
@@ -351,9 +350,9 @@ git clone https://github.com/사용자명/저장소명.git
 
 ## 📎 관련 링크
 
-* 시연 영상: `[YouTube 링크]`
+* 시연 영상: `[[YouTube 링크](https://youtu.be/xom6mnVka7U)`
 * 포트폴리오: `[포트폴리오 링크]`
-* 기술 문서: `[Notion 또는 블로그 링크]`
+* 기술 문서: `[[Notion 링크](https://app.notion.com/p/TeamTowerDefense-38e99904838e80c6983bf0393e909811?source=copy_link)]`
 
 <br>
 
