@@ -7,7 +7,7 @@
 <br>
 
 <p align="center">
-  <img src="Images/Main.png" width="800" alt="게임 메인 화면">
+  <img src="Images/teamTowerDefense_Main.png" width="800" alt="게임 메인 화면">
 </p>
 
 <br>
@@ -104,7 +104,7 @@
 ### 로비 화면
 
 <p align="center">
-  <img src="Images/Lobby.png" width="800" alt="로비 화면">
+  <img src="Images/teamTowerDefense_Lobby.png" width="800" alt="로비 화면">
 </p>
 
 게임 시작, 설정 및 스테이지 선택을 진행할 수 있는 로비 화면입니다.
@@ -114,7 +114,7 @@
 ### 전투 화면
 
 <p align="center">
-  <img src="Images/Battle.png" width="800" alt="전투 화면">
+  <img src="Images/teamTowerDefense_Battle.png" width="800" alt="전투 화면">
 </p>
 
 타워를 건설하고 몬스터의 웨이브를 방어하는 실제 플레이 화면입니다.
@@ -124,7 +124,7 @@
 ### 타워 건설
 
 <p align="center">
-  <img src="Images/BuildTower.png" width="800" alt="타워 건설 화면">
+  <img src="Images/teamTowerDefense_TowerBuild.png" width="800" alt="타워 건설 화면">
 </p>
 
 건설 가능한 위치를 선택하고 보유한 재화를 사용하여 타워를 설치합니다.
@@ -134,7 +134,7 @@
 ### 타워 공격
 
 <p align="center">
-  <img src="Images/TowerAttack.png" width="800" alt="타워 공격 화면">
+  <img src="Images/teamTowerDefense_ATK.png" width="800" alt="타워 공격 화면">
 </p>
 
 각 타워는 고유한 투사체, 범위 공격 및 상태 이상 효과를 사용합니다.
@@ -314,17 +314,14 @@ Assets
 
 ## ▶️ 실행 방법
 
-1. 이 저장소를 Clone합니다.
+1. 이 저장소의 BuildFile을 다운로드 합니다.
+2. BuildFile을 받으면 Project_TowerDefense를 실행합니다.
 
-```bash
-git clone https://github.com/사용자명/저장소명.git
-```
-
-2. Unity Hub에서 프로젝트를 엽니다.
-3. 프로젝트에서 사용한 Unity 버전을 선택합니다.
-4. `Assets/01.Scenes/BootStrap.unity` 씬을 엽니다.
-5. Unity Editor의 Play 버튼을 눌러 실행합니다.
-
+<br>
+<p align="center">
+  <img src="Images/downloadPath.png" width="800" alt="게임 파일">
+</p>
+<br>
 <br>
 
 ## 📅 개발 기간
